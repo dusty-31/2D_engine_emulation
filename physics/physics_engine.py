@@ -1,13 +1,13 @@
 from abc import ABC, abstractmethod
 from typing import List, TYPE_CHECKING
 
+from game_objects import Vector
+
 if TYPE_CHECKING:
     from game_objects.physics_body import PhysicsBody
-    from game_objects.vector import Vector
 else:
     from typing import Any
     PhysicsBody = Any
-    Vector = Any
 
 
 class PhysicsEngine(ABC):
@@ -17,7 +17,7 @@ class PhysicsEngine(ABC):
 
     def __init__(self):
         self.gravity = Vector(0, 9.8)
-        self.physics_objects: List[PhysicsBody] = []
+        self.physics_objects: List['PhysicsBody'] = []
 
     @abstractmethod
     def simulate(self, delta_time: float) -> None:

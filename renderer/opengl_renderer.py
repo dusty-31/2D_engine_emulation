@@ -1,8 +1,12 @@
-from typing import Any
+from typing import Any, TYPE_CHECKING
 
 from .renderer import Renderer
 from game_objects.sprite import Sprite
-from scene import Scene
+
+if TYPE_CHECKING:
+    from scene.scene import Scene
+else:
+    Scene = Any
 
 
 class OpenGLRenderer(Renderer):
@@ -15,7 +19,7 @@ class OpenGLRenderer(Renderer):
         print("Initializing OpenGL Renderer")
         # Placeholder for OpenGL initialization
 
-    def begin_scene(self, scene: Scene) -> None:
+    def begin_scene(self, scene: 'Scene') -> None:
         """
         Starts rendering a scene using OpenGL
         """

@@ -1,4 +1,4 @@
-from game_objects import Vector
+from game_objects.vector import Vector
 
 
 class Camera:

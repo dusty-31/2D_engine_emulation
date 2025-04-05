@@ -1,4 +1,5 @@
 from typing import Dict, Optional
+import time
 
 from physics import Box2DPhysics, PhysicsEngine
 from renderer import OpenGLRenderer, Renderer
@@ -74,18 +75,36 @@ class GameEngine:
         self.running = True
         self.last_time = self._get_time()
 
+        # Limit the number of iterations for demonstration purposes
+        max_iterations = 10
+        iteration_count = 0
+
+        print("Starting game loop...")
+
         while self.running:
             current_time = self._get_time()
-            self.delta_time = current_time - self.last_time
+            # In demo mode, _get_time() returns 0.0, so delta_time is always 0
+            # Setting a fixed value for the demonstration
+            self.delta_time = 0.016  # +- 60 FPS
             self.last_time = current_time
 
+            print(f"Frame {iteration_count + 1}: Updating scene...")
             self.current_scene.update(self.delta_time)
 
+            print(f"Frame {iteration_count + 1}: Rendering scene...")
             self.renderer.render_scene(self.current_scene)
 
             self._process_input()
 
-            self._limit_fps(60)
+            # Limit the frame rate to 60 FPS
+            time.sleep(0.016)  # +- 60 FPS
+
+            iteration_count += 1
+            if iteration_count >= max_iterations:
+                print(f"Demo completed after {max_iterations} frames")
+                self.running = False
+
+            print("Game loop ended")
 
     def stop(self) -> None:
         """
@@ -98,7 +117,9 @@ class GameEngine:
         """
         Returns the current time in seconds.
         """
-        return 0.0
+
+        return time.time()
+
 
     def _process_input(self) -> None:
         """

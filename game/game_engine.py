@@ -3,7 +3,9 @@ import time
 
 from physics import Box2DPhysics, PhysicsEngine
 from renderer import OpenGLRenderer, Renderer
+from scene import Leaf
 from scene.scene import Scene
+from .game_object_factory import GameObjectFactory, SpriteFactory, PhysicsBodyFactory, PlayerFactory, EnemyFactory
 from .resource_manager import ResourceManager
 from .scripting_engine import ScriptingEngine
 
@@ -23,6 +25,13 @@ class GameEngine:
         self.running = False
         self.delta_time = 0.0
         self.last_time = 0.0
+
+        self.object_factories: Dict[str, GameObjectFactory] = {
+            'sprite': SpriteFactory(),
+            'physics_body': PhysicsBodyFactory(),
+            'player': PlayerFactory(),
+            'enemy': EnemyFactory(),
+        }
 
     def initialize(self, width: int = 800, height: int = 600, title: str = "Game") -> bool:
         """
@@ -120,7 +129,6 @@ class GameEngine:
 
         return time.time()
 
-
     def _process_input(self) -> None:
         """
         Processes user input.
@@ -134,3 +142,28 @@ class GameEngine:
         This is a placeholder for actual frame rate limiting logic.
         """
         pass
+
+    def register_factory(self, factory_type: str, factory: GameObjectFactory) -> None:
+        """
+        Register a game object factory
+        """
+        self.object_factories[factory_type] = factory
+        print(f"Registered factory for '{factory_type}' objects")
+
+    def create_game_object(self, factory_type: str, name: str, **kwargs) -> Leaf:
+        """
+        Create a game object using the appropriate factory
+        """
+        if factory_type not in self.object_factories:
+            raise KeyError(f"No factory registered for type '{factory_type}'")
+
+        factory = self.object_factories[factory_type]
+        game_object = factory.create_object(name, **kwargs)
+
+        if self.current_scene:
+            self.current_scene.add_object(game_object)
+            print(f"Created and added '{name}' to current scene using {factory_type} factory")
+        else:
+            print(f"Created '{name}' using {factory_type} factory (not added to any scene)")
+
+        return game_object

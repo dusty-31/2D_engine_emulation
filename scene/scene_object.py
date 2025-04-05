@@ -1,10 +1,12 @@
 from abc import ABC, abstractmethod
-from typing import TYPE_CHECKING, List
+
+from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from renderer.renderer import Renderer
 else:
     from typing import Any
+
     Renderer = Any
 
 

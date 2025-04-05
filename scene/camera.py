@@ -9,8 +9,8 @@ class Camera:
     def __init__(self, position: Vector = None, zoom: float = 1.0):
         self.position = position if position else Vector()
         self.zoom = zoom
-        self.viewport_width = 800
-        self.viewport_height = 600
+        self.viewport_width = 1980
+        self.viewport_height = 1080
 
     def move(self, offset: Vector) -> None:
         """

@@ -41,6 +41,4 @@ class Scene:
         Renders all objects in the scene.
         """
         if renderer:
-            renderer.begin_scene(self)
             self.root.render(renderer)
-            renderer.end_scene()

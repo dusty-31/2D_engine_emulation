@@ -1,5 +1,5 @@
 from game_objects import GameObject
-from renderer import Renderer
+from renderer.renderer import Renderer
 from .scene_object import SceneObject
 
 

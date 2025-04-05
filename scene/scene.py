@@ -1,4 +1,4 @@
-from renderer import Renderer
+from renderer.renderer import Renderer
 from .camera import Camera
 from .composite import Composite
 from .scene_object import SceneObject

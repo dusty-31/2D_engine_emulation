@@ -1,6 +1,11 @@
 from abc import ABC, abstractmethod
+from typing import Any, TYPE_CHECKING
 
-from renderer.renderer import Renderer
+if TYPE_CHECKING:
+    from renderer.renderer import Renderer
+else:
+    Renderer = Any
+
 from .transform import Transform
 from .vector import Vector
 
@@ -24,7 +29,7 @@ class GameObject(ABC):
         pass
 
     @abstractmethod
-    def render(self, renderer: Renderer) -> None:
+    def render(self, renderer: 'Renderer') -> None:
         """
         Render the game object on the screen.
         """

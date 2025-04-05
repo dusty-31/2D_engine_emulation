@@ -1,6 +1,6 @@
 from .game_object import GameObject
 from .vector import Vector
-from renderer import Renderer
+from renderer.renderer import Renderer
 
 
 class PhysicsBody(GameObject):

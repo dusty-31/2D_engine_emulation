@@ -1,7 +1,13 @@
 from abc import ABC, abstractmethod
-from typing import List
+from typing import List, TYPE_CHECKING
 
-from game_objects import PhysicsBody, Vector
+if TYPE_CHECKING:
+    from game_objects.physics_body import PhysicsBody
+    from game_objects.vector import Vector
+else:
+    from typing import Any
+    PhysicsBody = Any
+    Vector = Any
 
 
 class PhysicsEngine(ABC):
@@ -20,7 +26,7 @@ class PhysicsEngine(ABC):
         """
         pass
 
-    def add_physics_object(self, obj: PhysicsBody) -> None:
+    def add_physics_object(self, obj: 'PhysicsBody') -> None:
         """
         Adds a physics object to the simulation
         """
@@ -28,7 +34,7 @@ class PhysicsEngine(ABC):
             self.physics_objects.append(obj)
             obj.physics_engine = self
 
-    def remove_physics_object(self, obj: PhysicsBody) -> None:
+    def remove_physics_object(self, obj: 'PhysicsBody') -> None:
         """
         Removes a physics object from the simulation
         """

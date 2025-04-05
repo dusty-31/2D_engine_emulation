@@ -1,6 +1,6 @@
 from typing import List
 
-from renderer import Renderer
+from renderer.renderer import Renderer
 from .scene_object import SceneObject
 
 

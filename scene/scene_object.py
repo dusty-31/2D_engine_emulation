@@ -1,6 +1,11 @@
 from abc import ABC, abstractmethod
+from typing import TYPE_CHECKING
 
-from renderer import Renderer
+if TYPE_CHECKING:
+    from renderer.renderer import Renderer
+else:
+    from typing import Any
+    Renderer = Any
 
 
 class SceneObject(ABC):
@@ -34,7 +39,7 @@ class SceneObject(ABC):
         pass
 
     @abstractmethod
-    def render(self, renderer: Renderer) -> None:
+    def render(self, renderer: 'Renderer') -> None:
         """
         Renders the scene object and its children.
         """

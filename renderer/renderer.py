@@ -1,8 +1,12 @@
 from abc import ABC, abstractmethod
-from typing import Any
+from typing import Any, TYPE_CHECKING
 
-from game_objects import Sprite
-from scene import Scene
+if TYPE_CHECKING:
+    from game_objects.sprite import Sprite
+    from scene.scene import Scene
+else:
+    Scene = Any
+    Sprite = Any
 
 
 class Renderer(ABC):
@@ -15,7 +19,7 @@ class Renderer(ABC):
         self.debug_mode = False
 
     @abstractmethod
-    def begin_scene(self, scene: Scene) -> None:
+    def begin_scene(self, scene: 'Scene') -> None:
         """
         Abstract method to start rendering a scene
         """
@@ -29,7 +33,7 @@ class Renderer(ABC):
         pass
 
     @abstractmethod
-    def draw_sprite(self, sprite: Sprite) -> None:
+    def draw_sprite(self, sprite: 'Sprite') -> None:
         """
         Abstract method to render a sprite
         """
@@ -43,7 +47,7 @@ class Renderer(ABC):
         pass
 
     @abstractmethod
-    def render_scene(self, scene: Scene) -> None:
+    def render_scene(self, scene: 'Scene') -> None:
         """
         Abstract method to render the entire scene
         """

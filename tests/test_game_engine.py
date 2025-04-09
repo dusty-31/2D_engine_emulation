@@ -1,6 +1,5 @@
 import pytest
 from game.game_engine import GameEngine
-from scene.scene import Scene
 from renderer.opengl_renderer import OpenGLRenderer
 from physics.box_2d_physics import Box2DPhysics
 

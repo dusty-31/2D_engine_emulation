@@ -4,6 +4,9 @@ from game_objects import PhysicsBody, Sprite
 
 
 def main():
+    """
+    Main function to run the game engine.
+    """
     engine = GameEngine()
     engine.initialize(800, 600, "My 2D Game")
     scene = engine.create_scene("MainScene")
